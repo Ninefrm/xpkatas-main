@@ -1,4 +1,4 @@
-function suma(a, b) {
-    return a + b;
+function berlin_clock(a) {
+    return a
 }
-module.exports = suma;
+module.exports = berlin_clock;
