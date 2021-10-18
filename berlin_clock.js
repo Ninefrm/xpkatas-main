@@ -36,19 +36,31 @@ The parameters should be as follows:
 
 function berlin_clock(str) {
     const splitted = str.split(':')
-    console.log(splitted)
-    if(splitted[2]%2){
-        console.log('O')
+    let result = '';
+    // Seconds
+    if (splitted[2] % 2) {
+        result = result + 'O' + '\n';
     }
-    console.log(splitted[0]%5)
-    if(splitted[0]%5 == 0){
-        // 0 5 10 15 20
-        Rnumbers = splitted[0]/5 
-        console.log('R'.repeat(Rnumbers) + 'O'.repeat(4-Rnumbers))
-        
-    }else{
-        console.log('hour no exact')
+    // Hours
+    r_times = Math.round(splitted[0] / 5)
+    remainder = splitted[0] % 5
+    result = result + 'R'.repeat(r_times) + 'O'.repeat(4 - r_times) + '\n'
+    result = result + 'R'.repeat(remainder) + 'O'.repeat(4 - remainder) + '\n'
+    // Minutes
+    if (splitted[1] % 15 == 0) {
+        // 0 15 30 45 
+        minRemainder = splitted[1] / 15;
+        reminder_text = ('YYR'.repeat(minRemainder).length)
+        result = result + 'YYR'.repeat(minRemainder) + 'O'.repeat(11 - (reminder_text)) + '\n'
+        result = result + 'OOOO'
+    } else {
+        // !0 15 30 45 
+        // 1 2 3 4 5.....
+        minRemainder = splitted[1] % 15;
+        console.log('YYR'.repeat(minRemainder).length)
+        result = result + 'YYR'.repeat(minRemainder) + 'O'.repeat(11 - (3)) + '\n'
     }
-    return "O\nRROO\nRROO\nYYRYYRYYRYY\nYOOO"
+    return result;
+    //return "O\nRROO\nRROO\nYYRYYRYYRYY\nYOOO"
 }
 module.exports = berlin_clock;
