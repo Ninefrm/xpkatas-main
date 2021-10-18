@@ -40,7 +40,15 @@ function berlin_clock(str) {
     if(splitted[2]%2){
         console.log('O')
     }
-    
+    console.log(splitted[0]%5)
+    if(splitted[0]%5 == 0){
+        // 0 5 10 15 20
+        Rnumbers = splitted[0]/5 
+        console.log('R'.repeat(Rnumbers) + 'O'.repeat(4-Rnumbers))
+        
+    }else{
+        console.log('hour no exact')
+    }
     return "O\nRROO\nRROO\nYYRYYRYYRYY\nYOOO"
 }
 module.exports = berlin_clock;
