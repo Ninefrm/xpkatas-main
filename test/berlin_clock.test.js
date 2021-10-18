@@ -8,7 +8,8 @@ const berlin_clock = require('../berlin_clock.js');
 
 describe("Tests", () => {
     it("test", () => {
-        assert.strictEqual(berlin_clock("05:56:01"),
-            "O\nRROO\nRROO\nYYRYYRYYRYY\nYOOO")
+        assert.strictEqual(berlin_clock("10:45:01"),
+            "O\nRROO\nOOOO\nYYRYYRYYROO\nOOOO")
+        
     });
 });

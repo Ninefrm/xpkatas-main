@@ -1,3 +1,3 @@
 const berlin_clock = require('./berlin_clock');
 
-berlin_clock("12:56:01")
+berlin_clock("10:45:01")
