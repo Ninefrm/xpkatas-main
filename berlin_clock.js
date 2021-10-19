@@ -33,45 +33,31 @@ The parameters should be as follows:
 // RROO HOURS
 // YYRYYRYYRYY MINUTES R - 15 MTNS Y - 5
 // YOOO MINUTE max 5
-
+function setCharAt(str, index, chr) {
+    if (index > str.length - 1) return str;
+    return str.substring(0, index) + chr + str.substring(index + 1);
+}
 function berlin_clock(str) {
     const splitted = str.split(':')
     let result = '';
     // Seconds
-    if (splitted[2] % 2) {
-        result = result + 'O' + '\n';
-    }
+    splitted[2] % 2 == 0 ? result = result + 'Y' + '\n' : result = result + 'O' + '\n'
     // Hours
     r_times = Math.round(splitted[0] / 5)
     remainder = splitted[0] % 5
     result = result + 'R'.repeat(r_times) + 'O'.repeat(4 - r_times) + '\n'
     result = result + 'R'.repeat(remainder) + 'O'.repeat(4 - remainder) + '\n'
     // Minutes
-    if (splitted[1] % 15 == 0) {
-        // 0 15 30 45 
-        minRemainder = splitted[1] / 15;
-        reminder_text = ('YYR'.repeat(minRemainder).length)
-        result = result + 'YYR'.repeat(minRemainder) + 'O'.repeat(11 - (reminder_text)) + '\n'
-        result = result + 'OOOO'
-    } else {
-        // !0 15 30 45 
-        // 1 2 3 4 5.....
-        // 0 - 59...
-        if(splitted[1] % 15){
-            // 16, 17, 18 + 
-            console.log('mayor a 15')
-        }else{
-            // YYRYYRYYRYY MINUTES R - 15 MTNS Y - 5
-            // YOOO MINUTE max 5
-            // 1 2 3 4 5 6 7 8 9 10 11 12 13 14
-            min_less_five = splitted[1]/5
+    r_times = Math.round(splitted[1] / 5)
+    remainder = splitted[1] % 5
+    result_min = 'Y'.repeat(r_times) + 'O'.repeat(11 - r_times) + '\n'
+    result_min_rem = 'Y'.repeat(remainder) + 'O'.repeat(4 - remainder)
+    for (let i = 0; i <= r_times; i++) {
+        if (i % 3 == 0 && i != 0) {
+            result_min = setCharAt(result_min, i - 1, 'R')
         }
-        minRemainder = splitted[1] % 15;
-        console.log('YYR'.repeat(minRemainder).length)
-        result = result + 'YYR'.repeat(minRemainder) + 'O'.repeat(11 - (3)) + '\n'
     }
+    result += (result_min) + result_min_rem
     return result;
-    // Refactor cambiar los splitted[] por un minuto = splitted [1], 
-    //return "O\nRROO\nRROO\nYYRYYRYYRYY\nYOOO"
 }
 module.exports = berlin_clock;
