@@ -21,4 +21,24 @@ describe("Tests", () => {
         assert.strictEqual(berlin_clock("22:32:45"),
             "O\nRRRR\nRROO\nYYRYYROOOOO\nYYOO");
     });
+    it("char in hour, half minutes", () => {
+
+        assert.strictEqual(berlin_clock("2A:32:45"),
+            false);
+    });
+    it("len hor", () => {
+
+        assert.strictEqual(berlin_clock("32:45"),
+            false);
+    });
+    it("26:60:60", () => {
+
+        assert.strictEqual(berlin_clock("26:32:45"),
+            false);
+    });
+    it("-23:60:60", () => {
+
+        assert.strictEqual(berlin_clock("26:32:45"),
+            false);
+    });
 });

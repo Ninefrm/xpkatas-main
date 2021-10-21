@@ -37,19 +37,34 @@ function setCharAt(str, index, chr) {
     if (index > str.length - 1) return str;
     return str.substring(0, index) + chr + str.substring(index + 1);
 }
+function isNumeric(str) {
+    if (typeof str != "string") return false // we only process strings!  
+    return !isNaN(str) && // is not a number
+        !isNaN(parseFloat(str)) // its not a float number
+}
+function isValidTimeUnit(str, valid){
+    if(str>valid) return true
+    if(str<0) return true
+    return false
+}
 function berlin_clock(str) {
     const splitted = str.split(':')
+    if (splitted.length != 3) return false
     let result = '';
+    seconds = splitted[2]
+    minutes = splitted[1]
+    hours = splitted[0]
+    if(!isNumeric(seconds) || !isNumeric(minutes) || !isNumeric(hours)) return false
+    if(isValidTimeUnit(seconds, 60) || isValidTimeUnit(minutes, 60) || isValidTimeUnit(hours, 24)) return false
     // Seconds
-    splitted[2] % 2 == 0 ? result = result + 'Y' + '\n' : result = result + 'O' + '\n'
+    seconds % 2 == 0 ? result = result + 'Y' + '\n' : result = result + 'O' + '\n'
     // Hours
-    r_times = Math.round(splitted[0] / 5)
-    remainder = splitted[0] % 5
-    result = result + 'R'.repeat(r_times) + 'O'.repeat(4 - r_times) + '\n'
-    result = result + 'R'.repeat(remainder) + 'O'.repeat(4 - remainder) + '\n'
+    r_times = Math.round(hours / 5)
+    remainder = hours % 5
+    result = result + 'R'.repeat(r_times) + 'O'.repeat(4 - r_times) + '\n' + 'R'.repeat(remainder) + 'O'.repeat(4 - remainder) + '\n'
     // Minutes
-    r_times = Math.round(splitted[1] / 5)
-    remainder = splitted[1] % 5
+    r_times = Math.round(minutes / 5)
+    remainder = minutes % 5
     result_min = 'Y'.repeat(r_times) + 'O'.repeat(11 - r_times) + '\n'
     result_min_rem = 'Y'.repeat(remainder) + 'O'.repeat(4 - remainder)
     for (let i = 0; i <= r_times; i++) {
@@ -58,6 +73,7 @@ function berlin_clock(str) {
         }
     }
     result += (result_min) + result_min_rem
+    // console.log(result)
     return result;
 }
 module.exports = berlin_clock;
